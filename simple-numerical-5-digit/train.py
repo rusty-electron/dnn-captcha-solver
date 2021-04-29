@@ -11,11 +11,12 @@ from sklearn.metrics import classification_report
 from keras.preprocessing.image import img_to_array
 from keras.optimizers import SGD
 
-from utility import preprocess
+from utility import preprocess, plot_graph
 from model import LeNet
 
 DATASET_PATH = "<add here>"
 EPOCHS = 20
+MODEL_PATH = "./model/captcha_lenet"
 
 class parseDataset:
     def __init__(self, folder_path):
@@ -62,3 +63,9 @@ if __name__ == "__main__":
                                     epochs=EPOCHS, 
                                     verbose=1, 
                                     validation_data=(X_test, y_test))
+   
+    predictions = model.predict(X_test, batch_size=32)
+    print(classification_report(y_test.argmax(axis=1), predictions.argmax(axis=1), target_names=lb.classes_))
+
+    model.save(MODEL_PATH)
+    plot_graph(H, EPOCHS)    

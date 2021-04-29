@@ -32,7 +32,7 @@ def imagepath_to_roi(imagepath, n_digits=5):
         roi_list.append(roi)
 
     assert len(roi_list) == n_digits
-    return roi_list
+    return roi_list, image, cnts
 
 def save_roi(roi_list, OUTPUT_PATH):
     for i, roi in enumerate(roi_list):
@@ -47,12 +47,20 @@ def save_roi(roi_list, OUTPUT_PATH):
         cv2.imwrite(p, roi)
         counts[digit] = count + 1
 
+def simshow(im):
+    if len(im.shape) < 3:
+        plt.imshow(im, cmap='gray')
+    elif len(im.shape[2] == 1):
+        plt.imshow(np.squeeze(im), cmap='gray')
+    else:
+        plt.imshow(im)
+
 if __name__ == "__main__":
     for (i, imagepath) in enumerate(imagepaths):
         print(f"processing image {i+1}/{len(imagepaths)}")
         
         digits = os.path.split(imagepath)[1][:n_digits]
-        image_roi_list = imagepath_to_roi(imagepath, n_digits)
+        image_roi_list, _, _ = imagepath_to_roi(imagepath, n_digits)
         save_roi(image_roi_list, OUTPUT_PATH)
         
         print(counts)
