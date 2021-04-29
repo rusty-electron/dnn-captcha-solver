@@ -1,3 +1,5 @@
+import os
+
 from keras.models import load_model
 import cv2
 import numpy as np
@@ -32,6 +34,4 @@ test_img_paths = parseDataset(TEST_DATA_PATH).image_paths
 for img_path in test_img_paths:
     i, r, c = imagepath_to_roi(img_path)
     img, pred_string = draw_predictions(i, r, c)
-    cv2.write(os.path.join(OUT_PATH, pred_string + ".jpg", img))
-
-
+    cv2.imwrite(os.path.join(OUT_PATH, pred_string + ".jpg", img))
