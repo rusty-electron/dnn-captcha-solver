@@ -5,7 +5,7 @@ import cv2
 import numpy as np
 
 from train import parseDataset
-from etl import imagepath_to_roi
+from prepare import imagepath_to_roi
 from utility import preprocess
 
 MODEL_PATH = "./model/captcha_lenet"
