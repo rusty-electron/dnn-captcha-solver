@@ -1,6 +1,6 @@
 model_path: "./model/captcha_lenet"
 img_size: 28
-dataset_path: "./data"
+dataset_path: "./data/processed"
 
 prepare: 
   solved_path: "./dataset/Captcha Solver/solved-captchas/electoral-tagged"

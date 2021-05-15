@@ -1,8 +1,11 @@
 .vscode/
 __pycache__
 dataset/
-data/
+!data/processed/*
+!data/predicted/*
 model/model.zip
 
 !data/.gitkeep
+!data/processed/info
+!data/predicted/info
 !dataset/download-info.md
