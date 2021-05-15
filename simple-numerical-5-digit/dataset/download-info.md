@@ -1,1 +1,1 @@
-download and place the `numeric-captcha.zip` here.
+download and extract the `numeric-captcha.zip` here.

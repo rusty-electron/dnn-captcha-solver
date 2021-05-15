@@ -8,7 +8,7 @@ from utility import load_config
 config = load_config("config.yml")
 
 SOLVED_PATH = config["prepare"]["solved_path"]
-OUTPUT_PATH = config["prepare"]["output_path"]
+DATASET_PATH = config["dataset_path"]
 
 imagepaths = list(paths.list_images(SOLVED_PATH))
 counts = {}
@@ -64,6 +64,6 @@ if __name__ == "__main__":
         
         digits = os.path.split(imagepath)[1][:n_digits]
         image_roi_list, _, _ = imagepath_to_roi(imagepath, n_digits)
-        save_roi(image_roi_list, OUTPUT_PATH)
+        save_roi(image_roi_list, DATASET_PATH)
         
-        print(counts)
+    print(counts)

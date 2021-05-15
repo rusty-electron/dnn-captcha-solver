@@ -1,0 +1,7 @@
+.vscode/
+__pycache__
+dataset/
+data/
+
+!data/.gitkeep
+!dataset/download-info.md

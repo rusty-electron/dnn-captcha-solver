@@ -23,15 +23,16 @@ def preprocess(image, width, height):
     return image
 
 def plot_graph(h_dict, epochs): # TODO: needs testing
-    fig, ax = plt.figure()
-    fig.style.use('ggplot')
+    fig = plt.figure()
+    fig, ax = plt.subplots()
+    plt.style.use('ggplot')
 
     ax.plot(np.arange(0, epochs), h_dict.history["loss"], label="train_loss")
     ax.plot(np.arange(0, epochs), h_dict.history["val_loss"], label="val_loss")
     ax.plot(np.arange(0, epochs), h_dict.history["accuracy"], label="acc")
     ax.plot(np.arange(0, epochs), h_dict.history["val_accuracy"], label="val_acc")
-    fig.title("Training Loss and Accuracy")
+    ax.set_title("Training Loss and Accuracy")
     ax.set_xlabel("Epoch #")
     ax.set_ylabel("Loss/Accuracy")
-    fig.legend()
-    fig.show()
+    ax.legend()
+    plt.show()

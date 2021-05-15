@@ -1,6 +1,6 @@
 # simple numerical captcha solver
 
-A very simple deep (not really) neural network implemented in tensorflow 2 that uses the [LeNet architecture][lenet-link] to solve easy numerical captchas, by default the scripts assume that you have 5 digits in the input image but it can be explicitly specified.
+A very simple deep (not really) neural network implemented in tensorflow 2 that uses the [LeNet architecture][1] to solve easy numerical captchas, by default the scripts assume that you have 5 digits in the input image but it can be explicitly specified.
 
 ## directory structure
 
@@ -31,4 +31,4 @@ A very simple deep (not really) neural network implemented in tensorflow 2 that 
 
     ![out2](./static/out2.png)
 
-[lenet-link]: https://direct.mit.edu/neco/article/1/4/541/5515/Backpropagation-Applied-to-Handwritten-Zip-Code
+[1]: https://direct.mit.edu/neco/article/1/4/541/5515/Backpropagation-Applied-to-Handwritten-Zip-Code

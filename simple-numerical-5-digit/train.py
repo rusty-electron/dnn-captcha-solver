@@ -17,7 +17,7 @@ from utility import load_config
 
 config = load_config("config.yml")
 
-DATASET_PATH = config["train"]["dataset_path"]
+DATASET_PATH = config["dataset_path"]
 EPOCHS = config["train"]["epochs"]
 MODEL_PATH = config["model_path"]
 LR = config["train"]["lr"]
