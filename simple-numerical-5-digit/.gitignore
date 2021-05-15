@@ -2,6 +2,7 @@
 __pycache__
 dataset/
 data/
+model/model.zip
 
 !data/.gitkeep
 !dataset/download-info.md

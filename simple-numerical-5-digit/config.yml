@@ -7,9 +7,9 @@ prepare:
 
 train:
   lr: 0.001
-  epochs: 2
+  epochs: 20
   batch_size: 128
 
 predict:
-  test_data_path: "./dataset/Captcha Solver/unsolved-captchas/electoral-tagged"
+  test_data_path: "./dataset/Captcha Solver/unsolved-captchas/electoral-captchas"
   out_path: "./data/predicted"
