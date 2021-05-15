@@ -1,6 +1,14 @@
+import os
+
 import cv2
 import numpy as np
 import matplotlib.pyplot as plt
+import yaml
+
+def load_config(config_name, CONFIG_PATH="./"):
+    with open(os.path.join(CONFIG_PATH, config_name)) as file:
+        config = yaml.load(file, Loader=yaml.FullLoader)
+    return config
 
 def preprocess(image, width, height):
     (h, w) = image.shape[:2]

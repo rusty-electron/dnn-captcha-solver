@@ -13,16 +13,23 @@ from keras.optimizers import SGD
 
 from utility import preprocess, plot_graph
 from model import LeNet
+from utility import load_config
 
-DATASET_PATH = "<add here>"
-EPOCHS = 20
-MODEL_PATH = "./model/captcha_lenet"
+config = load_config("config.yml")
+
+DATASET_PATH = config["train"]["dataset_path"]
+EPOCHS = config["train"]["epochs"]
+MODEL_PATH = config["model_path"]
+LR = config["train"]["lr"]
+IMG_SIZE = config["img_size"]
+BATCH_SIZE = config["train"]["batch_size"]
 
 class parseDataset:
-    def __init__(self, folder_path):
+    def __init__(self, folder_path, img_size=IMG_SIZE):
         self.image_paths = paths.list_images(folder_path)
         self.data = []
         self.labels = []
+        self.img_size = img_size
     
     def __len__(self):
         return len(self.image_paths)
@@ -33,7 +40,7 @@ class parseDataset:
             # load the image, pre-process it, and store it in the data list
             image = cv2.imread(image_path)
             image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-            image = preprocess(image, 28, 28)
+            image = preprocess(image, self.img_size, self.img_size)
             image = img_to_array(image)
             self.data.append(image)
 
@@ -54,17 +61,17 @@ if __name__ == "__main__":
     y_train = lb.transform(y_train)
     y_test = lb.transform(y_test)
 
-    model = LeNet.build(width=28, height=28, depth=1, classes=9)
-    opt = SGD(lr=0.1)
+    model = LeNet.build(width=IMG_SIZE, height=IMG_SIZE, depth=1, classes=9)
+    opt = SGD(lr=LR)
 
     model.compile(loss="categorical_crossentropy", optimizer=opt, metrics=["accuracy"])
 
-    H = model.fit(X_train, y_train, batch_size=128, 
+    H = model.fit(X_train, y_train, batch_size=BATCH_SIZE, 
                                     epochs=EPOCHS, 
                                     verbose=1, 
                                     validation_data=(X_test, y_test))
    
-    predictions = model.predict(X_test, batch_size=32)
+    predictions = model.predict(X_test, batch_size=BATCH_SIZE)
     print(classification_report(y_test.argmax(axis=1), predictions.argmax(axis=1), target_names=lb.classes_))
 
     model.save(MODEL_PATH)

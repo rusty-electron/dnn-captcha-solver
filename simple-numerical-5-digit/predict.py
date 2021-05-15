@@ -6,13 +6,15 @@ import numpy as np
 
 from train import parseDataset
 from prepare import imagepath_to_roi
-from utility import preprocess
+from utility import preprocess, load_config
 
-MODEL_PATH = "./model/captcha_lenet"
-TEST_DATA_PATH = "./Captcha Solver/unsolved-captchas/electoral-tagged"
-OUT_PATH = "./data/predicted"
+config = load_config("config.yml")
 
-def draw_predictions(img, roi_list, cnts):
+MODEL_PATH = config["model_path"]
+TEST_DATA_PATH = config["predict"]["test_data_path"]
+OUT_PATH = config["predict"]["out_path"]
+
+def draw_predictions(model, img, roi_list, cnts):
     predictions = []
     for roi, cnt in zip(roi_list, cnts):
         (x, y, w, h) = cv2.boundingRect(cnt)
@@ -28,10 +30,15 @@ def draw_predictions(img, roi_list, cnts):
 
     return img, "".join(predictions)
     
-model = load_model(MODEL_PATH)
-test_img_paths = parseDataset(TEST_DATA_PATH).image_paths
-
-for img_path in test_img_paths:
+def predict_one(img_path):
     i, r, c = imagepath_to_roi(img_path)
-    img, pred_string = draw_predictions(i, r, c)
-    cv2.imwrite(os.path.join(OUT_PATH, pred_string + ".jpg", img))
+    img, pred_string = draw_predictions(model, i, r, c)
+    return img, pred_string
+
+if __name__ == "__main__":
+    model = load_model(MODEL_PATH)
+    test_img_paths = parseDataset(TEST_DATA_PATH).image_paths
+
+    for img_path in test_img_paths:
+        img, pred_string = predict_one(img_path)
+        cv2.imwrite(os.path.join(OUT_PATH, pred_string + ".jpg", img))

@@ -3,9 +3,12 @@ import os
 from imutils import paths
 import cv2
 import matplotlib.pyplot as plt # TODO
+from utility import load_config
 
-SOLVED_PATH = "./Captcha Solver/solved-captchas/electoral-tagged"
-OUTPUT_PATH = "./data"
+config = load_config("config.yml")
+
+SOLVED_PATH = config["prepare"]["solved_path"]
+OUTPUT_PATH = config["prepare"]["output_path"]
 
 imagepaths = list(paths.list_images(SOLVED_PATH))
 counts = {}
@@ -15,7 +18,7 @@ def imagepath_to_roi(imagepath, n_digits=5):
     image = cv2.imread(imagepath)
     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
-    # threshold to invert colours 
+    # threshold to invert colours
     thresh = cv2.threshold(gray, 0, 255, cv2.THRESH_BINARY_INV | cv2.THRESH_OTSU)[1]
 
     # extract four contours with largest areas

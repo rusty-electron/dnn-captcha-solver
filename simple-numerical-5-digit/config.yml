@@ -1,0 +1,16 @@
+model_path: "./model/captcha_lenet"
+img_size: 28
+
+prepare: 
+  solved_path: "./Captcha Solver/solved-captchas/electoral-tagged"
+  output_path: "./data"
+
+train:
+  lr: 0.001
+  dataset_path: "<add here>"
+  epochs: 20
+  batch_size: 128
+
+predict:
+  test_data_path: "./Captcha Solver/unsolved-captchas/electoral-tagged"
+  out_path: "./data/predicted"
