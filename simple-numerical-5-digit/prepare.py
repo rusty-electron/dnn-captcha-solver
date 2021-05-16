@@ -2,6 +2,7 @@ import os
 
 from imutils import paths
 import cv2
+import numpy as np
 import matplotlib.pyplot as plt # TODO
 from utility import load_config
 
@@ -14,8 +15,12 @@ imagepaths = list(paths.list_images(SOLVED_PATH))
 counts = {}
 n_digits = 5
 
-def imagepath_to_roi(imagepath, n_digits=5):
-    image = cv2.imread(imagepath)
+def imagepath_to_roi(imagepath, n_digits=5, path=True):
+    if path:
+        image = cv2.imread(imagepath)
+    else:
+        # read image as a byte stream
+        image = cv2.imdecode(np.fromstring(imagepath.read(), np.uint8), 1)
     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
     # threshold to invert colours
